@@ -1,0 +1,36 @@
+[
+    {
+      "service_name": "HRIS Implementation",
+      "description": "Deploy a comprehensive Human Resource Information System (HRIS) to efficiently manage employee data, including personal information, job details, and performance records.",
+      "image": "https://images.unsplash.com/photo-1665724013155-eed51dd7cfa7?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "service_name": "Payroll Services",
+      "description": "Automate payroll processing to ensure accurate salary calculations, tax deductions, and seamless distribution of employee salaries.",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1630&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+  
+    {
+      "service_name": "Employee Self-Service Portals",
+      "description": "Create user-friendly portals allowing employees to access and manage their personal information, pay stubs, benefits, and leave requests.",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "service_name": "Recruitment and Applicant Tracking",
+      "description": "Utilize an Applicant Tracking System (ATS) to streamline the recruitment process, manage job postings, and track candidate applications.",
+      "image": "https://images.unsplash.com/photo-1559523182-a284c3fb7cff?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+  
+  
+    {
+      "service_name": "Employee Communication Tools",
+      "description": "Deploy internal communication tools to facilitate effective communication within the organization, including messaging systems and collaboration platforms.",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "service_name": "Compliance and Reporting Solutions",
+      "description": "Implement tools to ensure compliance with labor laws, industry regulations, and internal policies, and generate reports on HR metrics.",
+      "image": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1612&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+  ]
+  
