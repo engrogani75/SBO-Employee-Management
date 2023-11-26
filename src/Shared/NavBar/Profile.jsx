@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
     Navbar,
     MobileNav,
@@ -25,25 +25,22 @@ import {
     RocketLaunchIcon,
     Bars2Icon,
   } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 
 
-const profileMenuItems = [
-    {
-      label: "My Profile",
-      icon: UserCircleIcon,
-    },
-  
-    {
-      label: "Sign Out",
-      icon: PowerIcon,
-    },
-    {
-        label: "Login",
-        icon: PowerIcon,
-      },
-  ];
+
 const Profile = () => {
+
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+
+    logOut()
+        .then(() => { })
+        .catch(error => console.log(error));
+}
 
       const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -52,7 +49,9 @@ const Profile = () => {
     return (
         <div>
      <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+   
       <MenuHandler>
+   
         <Button
           variant="text"
           color="blue-gray"
@@ -63,7 +62,7 @@ const Profile = () => {
             size="sm"
             alt="tania andrew"
             className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            src={user?.photoURL}
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -72,35 +71,24 @@ const Profile = () => {
             }`}
           />
         </Button>
+
+       
       </MenuHandler>
-      <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
-              >
-                {label}
-              </Typography>
-            </MenuItem>
-          );
-        })}
+      <MenuList className="p-1 bg-transparent border-none text-xl font-bold flex flex-col justify-end items-end text-deep-orange-600">
+      
+        
+    <div className="mt-2">
+    {
+            user ? <>
+              <div className="mt-2"><span className="mr-2">{user?.displayName}</span></div>
+                 <button onClick={handleLogOut} className="btn btn-ghost bg-transparent">LogOut</button>
+            </> : <>
+                <li className="list-none"><Link to="/login">Login</Link></li>
+            </>
+        }
+    </div>
+
+        
       </MenuList>
     </Menu>
         </div>

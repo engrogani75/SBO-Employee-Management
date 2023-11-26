@@ -5,7 +5,7 @@ const NavList = () => {
 
     return (
       <div>
-        <ul className="mt-2 mb-4 flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-white font-bold">
+        <ul className="mt-2 mb-4 flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-black font-bold">
           <li>
             <NavLink
               to="/"
