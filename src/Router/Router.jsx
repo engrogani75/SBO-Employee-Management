@@ -8,6 +8,7 @@ import Registation from "../Pages/Registation/Registation";
 import PrivtaeRouter from "./PrivtaeRouter";
 import Dashboard from "../Dashboard/Dashboard";
 import EmployeeList from "../Dashboard/HR/EmployeeList";
+import Details from "../Dashboard/HR/Details";
 
 
 export const router = createBrowserRouter([
@@ -31,14 +32,23 @@ export const router = createBrowserRouter([
         },
       ]
     },
+
+
     {
       path: 'dashboard',
       element: <PrivtaeRouter><Dashboard></Dashboard></PrivtaeRouter>,
       children: [
         {
-          path: 'dashboard/employee-list',
-          element: <EmployeeList></EmployeeList>
-        }
+          path: 'employee-list',
+          element: <EmployeeList></EmployeeList>,
+        },
+
+        {
+          path: 'details/:id',
+          element: <Details></Details>,
+        },
+
+
       ]
     }
   ]);
