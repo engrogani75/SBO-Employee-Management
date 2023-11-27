@@ -5,6 +5,9 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Registation from "../Pages/Registation/Registation";
+import PrivtaeRouter from "./PrivtaeRouter";
+import Dashboard from "../Dashboard/Dashboard";
+import EmployeeList from "../Dashboard/HR/EmployeeList";
 
 
 export const router = createBrowserRouter([
@@ -26,7 +29,16 @@ export const router = createBrowserRouter([
           path: "/signUp",
          element: <Registation></Registation>,
         },
-
       ]
     },
+    {
+      path: 'dashboard',
+      element: <PrivtaeRouter><Dashboard></Dashboard></PrivtaeRouter>,
+      children: [
+        {
+          path: 'dashboard/employee-list',
+          element: <EmployeeList></EmployeeList>
+        }
+      ]
+    }
   ]);

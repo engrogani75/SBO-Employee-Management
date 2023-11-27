@@ -15,13 +15,18 @@ const Registation = () => {
  
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, user} = useContext(AuthContext);
     const navigate = useNavigate();
+
+
+    // ..........from submit..........
 
     const onSubmit = async(data) =>{
 
-    // console.log(data);
+   
     const imgData = new FormData();
+
+    // -----imag send to ImageDB-----------
     imgData.append("image", data.image[0]);
     const response = await axios.post(image_hosting_api, imgData);
     const photoUrl = response.data.data.url;
@@ -33,16 +38,37 @@ const Registation = () => {
         // console.log(loggedUser);
         updateUserProfile(data.name, photoUrl)
             .then(() => {
-                console.log('user profile info updated')
+
+            //  ---- now send to server for user collection------
+
+            const userColection = {
+              name: data.name || user?.displayName,
+              email: data.email || user?.email,
+              photo: photoUrl || user?.photoURL,
+              bank_account_no: data.bankAc,
+              designation: data.designation,
+              salary: data.salary,
+              role: data.role
+            }
+
+            axios.post('http://localhost:5000/users', userColection)
+            .then(res => {
+              console.log(res);
+              if(res.data.insertedId){
                 reset();
                 Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'User created successfully.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/');
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'your info has been successfully.',
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              navigate('/');
+              }
+
+            })
+           
+
 
             })
             .catch(error => console.log(error))
@@ -125,28 +151,70 @@ const Registation = () => {
         {errors.photo && <span className="text-red-600">photo is required</span>}
       </div>
 
+    
+
+
+      <div className="relative h-11 w-full min-w-[200px]">
+        <input
+          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+         placeholder =""
+         name="bankAc"
+         type="text"
+         {...register("bankAc", { required: true })}
+        />
+        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+        Bank_Account_no
+        </label>
+      </div>
+
+      <div className="relative h-11 w-full min-w-[200px]">
+        <input
+          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+         placeholder =""
+         name="designation"
+         type="text"
+         {...register("designation", { required: true })}
+        />
+        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+        Designation
+        </label>
+      </div>
+
+      <div className="relative h-11 w-full min-w-[200px]">
+        <input
+          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+         placeholder =""
+         name="salary"
+         type="number"
+         {...register("salary", { required: true })}
+        />
+        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+        Salary
+        </label>
+      </div>
+
       <div className="relative h-11 w-full min-w-[200px]">
      
-      <label>
-        Role:
-        <select
-          className="peer mt-6 h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal
-          text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200
-           placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 
-           disabled:border-0 disabled:bg-blue-gray-50"
-          name="role"
-          {...register("role", { required: true })}
-        >
-          <option value="Employee">Employee</option>
-          <option value="HR">HR</option>
-          <option value="Admin">Admin</option>
-          {/* Add other roles as needed */}
-        </select>
-        {errors.roll && <span className="text-red-600">roll is required</span>}
-      </label>
- 
- 
-      </div>
+     <label>
+       Role:
+       <select
+         className="peer mt-6 h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal
+         text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200
+          placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 
+          disabled:border-0 disabled:bg-blue-gray-50"
+         name="role"
+         {...register("role", { required: true })}
+       >
+         <option value="Employee">Employee</option>
+         <option value="HR">HR</option>
+         <option value="Admin">Admin</option>
+         {/* Add other roles as needed */}
+       </select>
+       {errors.roll && <span className="text-red-600">roll is required</span>}
+     </label>
+
+
+     </div>
 
       <input
           className="mt-8 block w-full select-none rounded-lg bg-pink-500 py-3 px-6 text-center 
