@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const useUsers = () => {
-   const {data: users=[]} = useQuery({
+   const {refetch, data: users=[]} = useQuery({
     queryKey: ['users'],
     queryFn: async () =>{
         const res = await axios.get('http://localhost:5000/users')
@@ -11,7 +11,7 @@ const useUsers = () => {
     }
 
    })
-   return [users]
+   return [users, refetch]
 };
 
 export default useUsers;

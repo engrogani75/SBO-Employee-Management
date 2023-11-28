@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import useUsers from '../../Hooks/useUsers';
 import axios from 'axios';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import ChekoutForm from './ChekoutForm';
 
+
+const stripePromise = loadStripe("pk_test_51OHFfzFX1q5JpfL8uZXgCzBQnUB2Mj7H3VIaGddgFECtiRDBqEsi9cxVVpKxgZldngy70AnY6BTUo7DMpkff0Ksi00fVWeD93a");
 
 const style = {
     position: 'absolute',
@@ -27,7 +33,7 @@ const style = {
 const EmployeeList = () => {
 
 
-    const [users] = useUsers()
+    const [users, refetch] = useUsers()
     const [open, setOpen] = useState(false);
 
     const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -43,7 +49,19 @@ const EmployeeList = () => {
             })
             .then(res => {
                 console.log('Data updated successfully:', res.data);
+                if (res.data.modifiedCount>0) {
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Varified.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                }
+
+
             })
+            refetch()
 
             .catch(error => {
                 console.error('Error updating data:', error);
@@ -62,12 +80,7 @@ const EmployeeList = () => {
     setOpen(false);
   };
 
-  const handlePayment = () => {
-    // Perform the payment action, using selectedEmployee._id, paymentData.month, paymentData.year, etc.
-    console.log('Payment processed:', selectedEmployee, paymentData);
-    // Close the modal
-    setOpen(false);
-  };
+
  
 
    
@@ -158,26 +171,33 @@ const EmployeeList = () => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           <p>Salary: {selectedEmployee?.salary}</p>
 
-          <label>
+          <label className='ml-1'>
               Month:
               <input
                 type="text"
+                className='border my-2 ml-1'
                 value={paymentData.month}
                 onChange={(e) => setPaymentData({ ...paymentData, month: e.target.value })}
               />
             </label>
 
-            <label>
+            <label className='ml-2'>
               Year:
               <input
                 type="text"
+                className='border-2 my-2 ml-1'
                 value={paymentData.year}
                 onChange={(e) => setPaymentData({ ...paymentData, year: e.target.value })}
               />
             </label>
           </Typography>
-          <Button onClick={handlePayment}>Pay</Button>
-          <Button onClick={handleClose}>Cancel</Button>
+
+          {/* for Strip */}
+
+          <Elements stripe={stripePromise}>
+                  <ChekoutForm selectedEmployee={selectedEmployee} paymentData={paymentData} ></ChekoutForm>
+                </Elements>
+
         </Box>
       </Modal>
                 
