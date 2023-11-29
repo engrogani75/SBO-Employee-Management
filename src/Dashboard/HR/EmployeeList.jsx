@@ -211,7 +211,7 @@ const EmployeeList = () => {
                 </> 
                }
                <td className="px-6 py-4">
-               <button><Link to={`/dashboard/details/${employee._id}`}>Show Details</Link></button>
+               <button><Link to={`/dashboard/details/${employee.email}`}>Show Details</Link></button>
                </td>
            </tr>
                 </>)

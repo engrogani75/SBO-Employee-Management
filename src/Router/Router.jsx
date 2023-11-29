@@ -9,6 +9,8 @@ import PrivtaeRouter from "./PrivtaeRouter";
 import Dashboard from "../Dashboard/Dashboard";
 import EmployeeList from "../Dashboard/HR/EmployeeList";
 import Details from "../Dashboard/HR/Details";
+import PaymentHistory from "../Dashboard/Employee/PaymentHistory/PaymentHistory";
+import WorkSheet from "../Dashboard/Employee/WorkSheet/WorkSheet";
 
 
 export const router = createBrowserRouter([
@@ -44,8 +46,23 @@ export const router = createBrowserRouter([
         },
 
         {
-          path: 'details/:id',
+          path: 'details/:email',
           element: <Details></Details>,
+        },
+
+        {
+          path: 'details/:email',
+          element: <Details></Details>,
+        },
+
+        {
+          path: 'payment-history',
+          element: <PaymentHistory></PaymentHistory>,
+        },
+
+        {
+          path: 'work-sheet',
+          element: <WorkSheet></WorkSheet>,
         },
 
 
