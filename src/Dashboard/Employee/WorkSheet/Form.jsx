@@ -1,58 +1,70 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { useContext } from 'react';
-import { AuthContext } from '../../../Provider/AuthProvider';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from "../../../Provider/AuthProvider";
+import moment from 'moment';
 
 const Form = ({ addWork }) => {
 
-    const { user} = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
+  const [task, setTask] = useState('');
+const [hours, setHours] = useState('');
+const [date, setDate] = useState('');
 
-    const [task, setTask] = useState('');
-    const [hours, setHours] = useState('');
-    const [date, setDate] = useState('');
+const handleSubmit = () => {
+  // Validate form inputs
+  if (!task || !hours || !date) {
+    alert('Please fill in all fields.');
+    return;
+  }
 
-    const handleSubmit = () => {
-        // Validate form inputs
-        if (!task || !hours || !date) {
-          alert('Please fill in all fields.');
-          return;
-        }
-    
-        // Create a new work entry
-        const newWork = {
-          task,
-          hours: parseInt(hours, 10),
-          date,
-          name: user?.displayName,
-          email:user?.email
-        };
-    
-        // Add the new work entry to the table
-        addWork(newWork);
-    
-        axios.post('http://localhost:5000/work-sheet', newWork)
-        .then(res => {
-            console.log(res.data);
-            setTask('');
-            setHours('');
-            setDate('');
-        })
-       
-    
-        
-    
-        // Clear the form fields
-       
-      };
+
+
+const dateString = (date); // replace this with your date string
+const dateObject = new Date(dateString);
+const month = dateObject.getMonth() + 1; // Adding 1 because getMonth() returns values from 0 to 11
+
+const monthString = moment(dateString).format('MMM');
+
+console.log(monthString);
+
+
+
+  // Create a new work entry
+  const newWork = {
+    task,
+    hours: parseInt(hours, 10),
+    date,
+    name: user?.displayName,
+    email: user?.email,
+    month: monthString, 
+  };
+
+  // Add the new work entry to the table
+  addWork(newWork);
+
+  axios.post('http://localhost:5000/work-sheet', newWork)
+  .then(res => {
+      console.log(res.data);
+      setTask('');
+      setHours('');
+      setDate('');
+  })
+ 
+
+  
+
+  // Clear the form fields
+ 
+};
+
 
 
     return (
-    <div>
-        <h1 className='text-center text-2xl font-bold uppercase my-2'>Pls submit your task</h1>
-     <div className='my-5 flex justify-center items-center gap-10 border-4 border-dotted'>
+      <div className='my-4'>
+          <h1 className='my-4 text-2xl font-bold uppercase text-center'>Pls add yor work</h1>
       <label>
         Tasks:
-        <select value={task} onChange={(e) => setTask(e.target.value)} className='border-2 border-blue-gray-900 ml-4'>
+        <select value={task} onChange={(e) => setTask(e.target.value)} className='mx-3 border-2 border-gray-400 py-1 '>
           <option value="Sales">Sales</option>
           <option value="Support">Support</option>
           <option value="Content">Content</option>
@@ -62,15 +74,14 @@ const Form = ({ addWork }) => {
       </label>
       <label>
         Hours Worked:
-        <input type="number" value={hours} onChange={(e) => setHours(e.target.value)} className='border-2 border-blue-gray-900 ml-4' />
+        <input type="number" value={hours} onChange={(e) => setHours(e.target.value)} className='mx-3 border-2 border-gray-400' />
       </label>
       <label>
         Date:
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)}  className='border-2 border-blue-gray-900 ml-4' />
+        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='mx-3 border-2 border-gray-400' />
       </label>
-      <button onClick={handleSubmit} className='bg-green-700 px-2 py-1 text-white rounded-full' type='submit'>Add </button>
+      <button onClick={handleSubmit} className='text-center' type='submit'>Add </button>
     </div>
-        </div>
     );
 };
 
