@@ -12,6 +12,7 @@ import Details from "../Dashboard/HR/Details";
 import PaymentHistory from "../Dashboard/Employee/PaymentHistory/PaymentHistory";
 import WorkSheet from "../Dashboard/Employee/WorkSheet/WorkSheet";
 import Progress from "../Dashboard/HR/Progress";
+import AmdinEmployeeList from "../Dashboard/Admin/AmdinEmployeeList";
 
 
 
@@ -71,6 +72,12 @@ export const router = createBrowserRouter([
           path: 'work-sheet',
           element: <WorkSheet></WorkSheet>,
         },
+
+        {
+          path: 'all-employee-list',
+          element: <AmdinEmployeeList></AmdinEmployeeList>,
+        },
+
 
 
       ]

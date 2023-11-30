@@ -60,8 +60,8 @@ console.log(monthString);
 
 
     return (
-      <div className='my-4'>
-          <h1 className='my-4 text-2xl font-bold uppercase text-center'>Pls add yor work</h1>
+      <div className='my-4 flex justify-evenly'>
+          {/* <h1 className='my-4 text-2xl font-bold uppercase text-center'>Pls add yor work</h1> */}
       <label>
         Tasks:
         <select value={task} onChange={(e) => setTask(e.target.value)} className='mx-3 border-2 border-gray-400 py-1 '>
@@ -80,7 +80,7 @@ console.log(monthString);
         Date:
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='mx-3 border-2 border-gray-400' />
       </label>
-      <button onClick={handleSubmit} className='text-center' type='submit'>Add </button>
+      <button onClick={handleSubmit} className='text-center bg-orange-500 p-1 border-2 rounded-xl font-bold' type='submit'>Add </button>
     </div>
     );
 };
