@@ -19,7 +19,7 @@ const useRole = () => {
          setUserRole(result[0].role)
          setLoading(false)
         })
-     }, [user.email])
+     }, [user])
 
      return [userRole, loading]
 };
