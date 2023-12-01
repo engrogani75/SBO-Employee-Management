@@ -13,6 +13,9 @@ import PaymentHistory from "../Dashboard/Employee/PaymentHistory/PaymentHistory"
 import WorkSheet from "../Dashboard/Employee/WorkSheet/WorkSheet";
 import Progress from "../Dashboard/HR/Progress";
 import AmdinEmployeeList from "../Dashboard/Admin/AmdinEmployeeList";
+import AdminRouter from "./AdminRouter";
+import EmployeeRoute from "./EmployeeRoute";
+import HrRoute from "./HrRoute";
 
 
 
@@ -45,7 +48,7 @@ export const router = createBrowserRouter([
       children: [
         {
           path: 'employee-list',
-          element: <EmployeeList></EmployeeList>,
+          element: <HrRoute><EmployeeList></EmployeeList></HrRoute>
         },
 
         {
@@ -53,29 +56,26 @@ export const router = createBrowserRouter([
           element: <Details></Details>,
         },
 
-        {
-          path: 'details/:email',
-          element: <Details></Details>,
-        },
+       
 
         {
           path: 'progress',
-          element: <Progress></Progress>,
+          element: <HrRoute><Progress></Progress></HrRoute>,
         },
 
         {
           path: 'payment-history',
-          element: <PaymentHistory></PaymentHistory>,
+          element: <EmployeeRoute><PaymentHistory></PaymentHistory></EmployeeRoute>
         },
 
         {
           path: 'work-sheet',
-          element: <WorkSheet></WorkSheet>,
+          element:<EmployeeRoute><WorkSheet></WorkSheet></EmployeeRoute>
         },
 
         {
           path: 'all-employee-list',
-          element: <AmdinEmployeeList></AmdinEmployeeList>,
+          element:<AdminRouter><AmdinEmployeeList></AmdinEmployeeList></AdminRouter>
         },
 
 

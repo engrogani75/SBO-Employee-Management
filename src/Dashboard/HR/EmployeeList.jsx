@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useUsers from '../../Hooks/useUsers';
 import axios from 'axios';
 import { loadStripe } from "@stripe/stripe-js";
@@ -11,6 +11,8 @@ import Modal from '@mui/material/Modal';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import ChekoutForm from './ChekoutForm';
+import { AuthContext } from '../../Provider/AuthProvider';
+import useRole from '../../Hooks/useRole';
 
 
 const stripePromise = loadStripe("pk_test_51OHFfzFX1q5JpfL8uZXgCzBQnUB2Mj7H3VIaGddgFECtiRDBqEsi9cxVVpKxgZldngy70AnY6BTUo7DMpkff0Ksi00fVWeD93a");
@@ -38,6 +40,14 @@ const EmployeeList = () => {
 
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [paymentData, setPaymentData] = useState({ month: '', year: '' });
+
+    
+  // for testing purpose
+
+  
+    const [userRole] = useRole();
+
+    console.log(userRole);
 
 
     const verifiedHandle = (id) =>{
