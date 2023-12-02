@@ -1,6 +1,4 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+
 import { Navigate, useLocation } from "react-router-dom";
 import { CirclesWithBar } from "react-loader-spinner";
 import useRole from "../Hooks/useRole";
@@ -8,6 +6,7 @@ import useRole from "../Hooks/useRole";
 const HrRoute = ({children}) => {
 
     const location = useLocation();
+    
    const [userRole, loading] = useRole()
 
 

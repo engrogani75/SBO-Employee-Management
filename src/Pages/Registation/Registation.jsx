@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+
 
 
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=605bc6d064766cdb1185aede7e5b5240`;
@@ -17,11 +19,22 @@ const Registation = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile, user} = useContext(AuthContext);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic()
 
 
     // ..........from submit..........
 
     const onSubmit = async(data) =>{
+
+      if (data.role === "Admin") {
+        return  Swal.fire({
+          position: 'top-end',
+          icon: 'warning',
+          title: 'You can not select the Admin ditectly',
+          showConfirmButton: false,
+          timer: 1500
+      });
+      }
 
    
     const imgData = new FormData();
@@ -30,6 +43,8 @@ const Registation = () => {
     imgData.append("image", data.image[0]);
     const response = await axios.post(image_hosting_api, imgData);
     const photoUrl = response.data.data.url;
+
+   
 
 
     createUser(data.email, data.password)
@@ -41,6 +56,8 @@ const Registation = () => {
 
             //  ---- now send to server for user collection------
 
+            
+
             const userColection = {
               name: data.name || user?.displayName,
               email: data.email || user?.email,
@@ -51,7 +68,7 @@ const Registation = () => {
               role: data.role
             }
 
-            axios.post('http://localhost:5000/users', userColection)
+            axiosPublic.post('/users', userColection)
             .then(res => {
               console.log(res);
               if(res.data.insertedId){
@@ -75,9 +92,9 @@ const Registation = () => {
     })
     }
     return (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center bg-brown-600">
       <div className="my-10">
-        <h1 className="text-2xl my-10">Pls Input your details for Registation</h1>
+        <h1 className="text-2xl lg:my-10 md:my-5 my-3 capitalize italic">Pls Input your details for Registation</h1>
         <form className="max-w-xl mx-auto border-2 shadow-xl p-4 bg-brown-900" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 flex flex-col gap-6">
       <div className="relative h-11 w-full min-w-[200px]">

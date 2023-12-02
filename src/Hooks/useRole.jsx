@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
+import useAxiosSecure from "./useAxiosSecure";
 
 
 
@@ -9,17 +10,18 @@ const useRole = () => {
     const {user} = useAuth()
     const [userRole, setUserRole] = useState('')
     const [loading, setLoading] = useState(true)
+    const axiosSecure = useAxiosSecure()
  
 
     useEffect(() =>{
 
-        axios.get(`http://localhost:5000/users/${user?.email}`) 
+        axiosSecure.get(`/users/${user?.email}`) 
         .then(res => {
          const result = res?.data
          setUserRole(result[0].role)
          setLoading(false)
         })
-     }, [user])
+     }, [axiosSecure, user])
 
      return [userRole, loading]
 };

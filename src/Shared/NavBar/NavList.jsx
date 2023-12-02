@@ -1,29 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../Provider/AuthProvider";
-import axios from "axios";
+import useRole from "../../Hooks/useRole";
+
 
 const NavList = () => {
-  const {user} = useContext(AuthContext)
-  const [userRole, setUserRole] = useState("")
-
-
-    useEffect(() =>{
-
-      axios.get(`http://localhost:5000/users/${user?.email}`) 
-      .then(res => {
-       const result = res?.data
-       setUserRole(result[0].role)
-      })
-   }, [user])
+ 
+  const [userRole, loading] = useRole()
 
 
  
 
-
     return (
       <div>
-        <ul className="mt-2 mb-4 flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-black font-bold">
+        <ul className="mt-2 mb-4  md:text-2xl flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-black font-bold">
           {
             userRole === "HR" &&(
               <>
@@ -75,6 +64,24 @@ const NavList = () => {
               </>
             )
          } 
+
+
+{
+            userRole === "" &&(
+              <>
+           <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "active" : ""
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+              </>
+            )
+         }
           
 
           <li>

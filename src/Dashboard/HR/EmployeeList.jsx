@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import ChekoutForm from './ChekoutForm';
 import { AuthContext } from '../../Provider/AuthProvider';
 import useRole from '../../Hooks/useRole';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 
 const stripePromise = loadStripe("pk_test_51OHFfzFX1q5JpfL8uZXgCzBQnUB2Mj7H3VIaGddgFECtiRDBqEsi9cxVVpKxgZldngy70AnY6BTUo7DMpkff0Ksi00fVWeD93a");
@@ -37,6 +38,7 @@ const EmployeeList = () => {
 
     const [users, refetch] = useUsers()
     const [open, setOpen] = useState(false);
+    const axiosSecure = useAxiosSecure()
 
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [paymentData, setPaymentData] = useState({ month: '', year: '' });
@@ -54,7 +56,7 @@ const EmployeeList = () => {
         const proced = confirm('are you sure confirm it')
   
         if (proced) {
-            axios.patch(`http://localhost:5000/users/${id}`, {
+          axiosSecure.patch(`/users/${id}`, {
                 isVerfied: true
             })
             .then(res => {

@@ -1,25 +1,13 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+
 import { Navigate, useLocation } from "react-router-dom";
 import { CirclesWithBar } from "react-loader-spinner";
+import useRole from "../Hooks/useRole";
 
 const EmployeeRoute = ({children}) => {
-    const {user} = useContext(AuthContext)
-    const [loading, setLoading] = useState(true)
-
-    const [userRole, setUserRole] = useState([])
+   
     const location = useLocation();
 
-    useEffect(() =>{
-
-        axios.get(`http://localhost:5000/users/${user?.email}`) 
-        .then(res => {
-         const result = res?.data
-         setUserRole(result[0].role)
-         setLoading(false)
-        })
-     }, [user])
+    const [userRole, loading] = useRole()
 
 
      if(loading){

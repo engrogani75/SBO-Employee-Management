@@ -4,11 +4,6 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
-// import { AuthContext } from "../../providers/AuthProvider";
-// import { Link, useNavigate } from "react-router-dom";
-// import Swal from 'sweetalert2'
-// import useAxiosPublic from "../../hooks/useAxiosPublic";
-// import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
@@ -39,9 +34,10 @@ const Login = () => {
 
 
     return (
-        <div className="flex justify-center items-center">
-      <div className="my-10">
-        <h1 className="text-2xl my-10">Pls give correct  Email and Password</h1>
+        <div className="flex justify-center items-center bg-brown-600">
+      <div className="lg:my-10">
+        <h1 className="lg:text-2xl lg:my-10 md:my-5 my-3 text-center">Pls give correct  Email and Password</h1>
+        
         <form className="max-w-xl mx-auto border-2 shadow-xl p-4 bg-brown-900" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 flex flex-col gap-6">
      
@@ -101,11 +97,13 @@ const Login = () => {
       New Comer Pls Registation?
       <Link to="/signUp"
         className="font-medium text-pink-500 transition-colors hover:text-blue-700 ml-2">
-        Sign In
+        Registation
       </Link>
     </p>
 
         </form>
+
+        
 
       </div>
       </div>

@@ -4,8 +4,10 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ChekoutForm = ({selectedEmployee, paymentData}) => {
+    const axiosSecure = useAxiosSecure()
 
     const {_id, name, email, photo, bank_account_no, salary, designation, role, } = selectedEmployee;
     const{year, month} = paymentData;
@@ -20,12 +22,12 @@ const ChekoutForm = ({selectedEmployee, paymentData}) => {
     const navigate = useNavigate();
 
     useEffect(() =>{
-        axios.post('http://localhost:5000/create-payment-intent', {salary: salary})
+        axiosSecure.post('/create-payment-intent', {salary: salary})
         .then(res =>{
             console.log(res.data.clientSecret);
             setClientSecret(res.data.clientSecret);
         })
-    }, [salary])
+    }, [salary, axiosSecure])
     
 const handleSubmit = async (event) =>{
     console.log('pay summit click');

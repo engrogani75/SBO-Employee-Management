@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const PaymentHistory = () => {
     const [paymentHistory, setPaymentHistory] = useState([])
+    const axiosSecure = useAxiosSecure()
 
     useEffect(() =>{
-        axios.get('http://localhost:5000/payments')
+      axiosSecure.get('/payments')
         .then(res =>{
             const data = res.data;
             setPaymentHistory(data)

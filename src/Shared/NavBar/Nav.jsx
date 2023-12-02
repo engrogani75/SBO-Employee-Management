@@ -39,7 +39,7 @@ const Nav = () => {
   
 
     return (
-        <div className="grid grid-cols-12 bg-transparent justify-center items-center fixed z-50 w-9/12">
+        <div className="grid grid-cols-12 bg-transparent mx-auto justify-center md:left-10 items-center md:fixed z-50 w-11/12">
           <div className="col-span-3">
           <Logo></Logo>
           </div>
