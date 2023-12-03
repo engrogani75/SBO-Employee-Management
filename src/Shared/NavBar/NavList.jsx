@@ -1,18 +1,21 @@
 
 import { NavLink } from "react-router-dom";
 import useRole from "../../Hooks/useRole";
+import useAuth from "../../Hooks/useAuth";
 
 
 const NavList = () => {
  
   const [userRole, loading] = useRole()
 
+  const {user} = useAuth()
+
 
  
 
     return (
       <div>
-        <ul className="mt-2 mb-4  md:text-2xl flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-black font-bold">
+        <ul className="mt-2 mb-4 lg:text-3xl md:text-2xl flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-blue-800 font-bold">
           {
             userRole === "HR" &&(
               <>
@@ -67,7 +70,7 @@ const NavList = () => {
 
 
 {
-            userRole === "" &&(
+            user === null &&(
               <>
            <li>
             <NavLink
@@ -83,6 +86,8 @@ const NavList = () => {
             )
          }
           
+       
+
 
           <li>
             <NavLink

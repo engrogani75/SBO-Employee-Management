@@ -69,11 +69,12 @@ const EmployeeList = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                refetch()
                 }
 
 
             })
-            refetch()
+           
 
             .catch(error => {
                 console.error('Error updating data:', error);

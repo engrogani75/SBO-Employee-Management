@@ -4,16 +4,39 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useUsers from "../../Hooks/useUsers";
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
-    
+
+    const [users] = useUsers()
+    const finddata = users.filter(firedEmail =>firedEmail.status === 'Fired')
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+  
+
     const onSubmit = data => {
-   console.log(data);
+  
+      const fierdData = (finddata.filter(fired => fired.status === 'Fired') && 
+      finddata.filter(fired => fired.email === data.email))
+
+      if(fierdData[0]?.email === data?.email){
+        return  Swal.fire({
+          title: 'You are Fired By Admin, pls condact admin.',
+          showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+          }
+      });
+      }
+
+
    signIn(data.email, data.password)
    .then(result => {
     const user = result.user;

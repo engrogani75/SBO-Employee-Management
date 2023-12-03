@@ -55,13 +55,13 @@ const Profile = () => {
         <Button
           variant="text"
           color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          className="flex  items-center gap-1 rounded-full py-0.5 lg:ml-auto mr-3"
         >
           <Avatar
             variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
+            size="md"
+            alt="Profile"
+            className="border border-gray-900"
             src={user?.photoURL}
           />
           <ChevronDownIcon
@@ -77,13 +77,13 @@ const Profile = () => {
       <MenuList className="p-1 bg-transparent border-none text-xl font-bold flex flex-col justify-end items-end text-deep-orange-600">
       
         
-    <div className="mt-2">
+    <div className="mt-4 w-52  bg-white mr-1 pl-1 shadow-xl">
     {
             user ? <>
-              <div className="mt-2"><span className="mr-2">{user?.displayName}</span></div>
-                 <button onClick={handleLogOut} className="btn btn-ghost bg-transparent">LogOut</button>
+              <div className="mt-2"><span className="mr-1 text-blue-800">{user?.displayName}</span></div>
+                 <button onClick={handleLogOut} className="btn btn-ghost bg-transparent text-blue-800">LogOut</button>
             </> : <>
-                <li className="list-none"><Link to="/login">Login</Link></li>
+                <li className="list-none text-blue-800 py-4 mr-3"><Link to="/login">Login</Link></li>
             </>
         }
     </div>

@@ -1,10 +1,33 @@
+import { useState } from "react";
 import useUsers from "../../Hooks/useUsers";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 const AmdinEmployeeList = () => {
 
+    const [users, refetch] = useUsers()
+    const axiosSecure  = useAxiosSecure()
+
+    const userFilter = users.filter(verfiyUser => verfiyUser.isVerfied === true) 
+
    
-    const [users] = useUsers()
+  const firedHandle = (id) =>{
+   axiosSecure.patch(`/users/admin/${id}`)
+   .then(res => {
+    refetch()
+    console.log(res.data);
+   })
+  }
+
+  const makeHrHandle = (id) =>{
+    axiosSecure.put(`/users/mkhr/${id}`)
+   .then(res => {
+    refetch()
+    console.log(res.data);
+   })
+  }
+
+
 
   
 
@@ -23,18 +46,27 @@ const AmdinEmployeeList = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((employee) => (
+            {userFilter.map((employee) => (
               <tr key={employee.id} scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 <td className="px-6 py-4">{employee.name}</td>
                 <td className="px-6 py-4">{employee.designation}</td>
                 <td className="px-6 py-4">
-                  {!employee.isHR && (
-                    <button>Make HR</button>
-                  )}
+               
+                  {
+                    employee.role === 'HR' || employee.role === 'Admin'? 
+                    <><button disabled className="bg-green-600 p-2 border-2 rounded-xl">{employee.role}</button></>:<>
+                    <button onClick={() => makeHrHandle(employee._id)}>Make HR</button></>
+                  }
+
+
                 </td>
                 <td className="px-6 py-4">
-                  <button>Fire</button>
+                  {
+                    employee.status === 'Fired'? <><button>Fired</button></>:
+                    <><button className="bg-red-600 p-2 border-2 rounded-xl text-white" onClick={() =>firedHandle(employee._id)}>Fire</button></>
+                  }
+                  {/*  */}
                 </td>
               </tr>
             ))}

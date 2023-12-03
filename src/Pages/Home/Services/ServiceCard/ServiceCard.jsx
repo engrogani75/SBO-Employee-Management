@@ -19,7 +19,7 @@ const ServiceCard = ({item}) => {
         <img
           src={item.image}
           alt="ui/ux review check"
-          className="h-[200px]"
+          className="h-[200px] mx-auto"
         />
       </CardHeader>
       <CardBody>

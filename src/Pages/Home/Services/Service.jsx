@@ -19,7 +19,7 @@ const Service = () => {
         <div className="my-6 ">
             <h2 className="text-3xl font-bold text-center my-6">Our Service</h2>
           
-           <div className="grid md:grid-cols-2 lg:grid-cols-3">
+           <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto justify-center items-center">
            {
                 service.map(item => <ServiceCard key={item.index} item = {item}></ServiceCard>)
             }
