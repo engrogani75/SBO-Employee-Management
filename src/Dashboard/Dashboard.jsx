@@ -28,9 +28,11 @@ const [userRole, loading] = useRole()
     return (
         <div>
             <h1 className='text-3xl text-center'>Welcome To Deshborad</h1>
-           <div>
+           <div className='flex flex-col'>
+
+
                 
-<aside id="default-sidebar" className="fixed mt-10 top-0 left-0 z-40 w-64 h-screen 
+<aside id="default-sidebar" className="md:fixed  mt-10 top-0 left-0 z-40 w-64 h-screen 
  transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
    <div className="h-full px-3 py-4 overflow-y-auto bg-blue-200 font-bold dark:bg-gray-800">
       <ul className="space-y-2 font-bold">
