@@ -6,7 +6,7 @@ const useWorksheet = () => {
     const {refetch, data: worksheet=[]} = useQuery({
         queryKey: ['worksheet'],
         queryFn: async () =>{
-            const res = await axios.get('http://localhost:5000/work-sheet')
+            const res = await axios.get('https://sbo-employee-management-server.vercel.app/work-sheet')
             return res.data
         }
     

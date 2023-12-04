@@ -6,16 +6,15 @@ import useAuth from "../../Hooks/useAuth";
 
 const NavList = () => {
  
-  const [userRole, loading] = useRole()
+  const [userRole] = useRole()
 
   const {user} = useAuth()
 
 
- 
 
     return (
       <div>
-        <ul className="mt-2 mb-4 lg:text-3xl md:text-2xl flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-blue-800 font-bold">
+        <ul className=" nav mt-2 mb-4 lg:text-2xl md:text-2xl flex  gap-2 md:gap-8 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-blue-800 font-bold">
           {
             userRole === "HR" &&(
               <>
@@ -70,6 +69,23 @@ const NavList = () => {
 
 
 {
+            user && userRole === undefined  &&(
+              <>
+           <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "active" : ""
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+              </>
+            )
+         }
+
+{
             user === null &&(
               <>
            <li>
@@ -91,7 +107,7 @@ const NavList = () => {
 
           <li>
             <NavLink
-              to="/"
+              to="/contact-us"
               className={({ isActive, isPending }) =>
                 isPending ? "pending" : isActive ? "active" : ""
               }

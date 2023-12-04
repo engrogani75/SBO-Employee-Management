@@ -24,13 +24,13 @@ const ChekoutForm = ({selectedEmployee, paymentData}) => {
     useEffect(() =>{
         axiosSecure.post('/create-payment-intent', {salary: salary})
         .then(res =>{
-            console.log(res.data.clientSecret);
+        
             setClientSecret(res.data.clientSecret);
         })
     }, [salary, axiosSecure])
     
 const handleSubmit = async (event) =>{
-    console.log('pay summit click');
+   
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -54,7 +54,7 @@ const handleSubmit = async (event) =>{
     }
 
     else {
-        console.log('payment method', paymentMethod)
+        // console.log('payment method', paymentMethod)
         setError('');
     }
 
@@ -70,13 +70,19 @@ const handleSubmit = async (event) =>{
     })
 
     if (confirmError) {
-        console.log('confirm error')
+        Swal.fire({
+            position: "top-end",
+            icon: "warning",
+            title: "Payment has been not completed",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
 
     else{
-        console.log('payment intent', paymentIntent)
+        // console.log('payment intent', paymentIntent)
         if (paymentIntent.status === 'succeeded') {
-            console.log('transaction id', paymentIntent.id);
+            // console.log('transaction id', paymentIntent.id);
             setTransactionId(paymentIntent.id);
         }
 
@@ -94,8 +100,9 @@ const handleSubmit = async (event) =>{
             role: role
         }
 
-        const res = await axios.post('http://localhost:5000/payments', payment);
-        console.log('payment saved', res.data);
+        const res = await axios.post('https://sbo-employee-management-server.vercel.app/payments', payment);
+        // console.log('payment saved', res.data);
+        navigate('/dashboard/employee-list')
 
         if (res.data.insertedId) {
             Swal.fire({
@@ -106,7 +113,7 @@ const handleSubmit = async (event) =>{
                 timer: 1500
             });
 
-            navigate('/dashboard/employee-list')
+            
         }
 
         // insertedId

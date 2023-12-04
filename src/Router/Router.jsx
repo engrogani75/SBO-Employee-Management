@@ -16,6 +16,7 @@ import AmdinEmployeeList from "../Dashboard/Admin/AmdinEmployeeList";
 import AdminRouter from "./AdminRouter";
 import EmployeeRoute from "./EmployeeRoute";
 import HrRoute from "./HrRoute";
+import Condact from "../Pages/Contact/Condact";
 
 
 
@@ -27,6 +28,11 @@ export const router = createBrowserRouter([
         {
           path: "/",
          element: <Home></Home>,
+        },
+
+        {
+          path: "/contact-us",
+         element: <Condact></Condact>,
         },
 
         {

@@ -31,7 +31,7 @@ const Testimonials = () => {
     return (
     
         <div>
-        <h1 className="my-10 text-2xl font-bold text-center">About the Company</h1>
+        <h1 className="my-10 text-3xl font-bold text-center text-blue-800">Reviews the Company</h1>
       <Slider {...settings} className="mt-4">
             {testimonials.map((testimonial) => (
               <div key={testimonial.id}>

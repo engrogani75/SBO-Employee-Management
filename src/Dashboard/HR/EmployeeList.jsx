@@ -16,7 +16,7 @@ import useRole from '../../Hooks/useRole';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 
-const stripePromise = loadStripe("pk_test_51OHFfzFX1q5JpfL8uZXgCzBQnUB2Mj7H3VIaGddgFECtiRDBqEsi9cxVVpKxgZldngy70AnY6BTUo7DMpkff0Ksi00fVWeD93a");
+const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
 const style = {
     position: 'absolute',
@@ -47,9 +47,9 @@ const EmployeeList = () => {
   // for testing purpose
 
   
-    const [userRole] = useRole();
+    // const [userRole] = useRole();
 
-    console.log(userRole);
+    // console.log(userRole);
 
 
     const verifiedHandle = (id) =>{
@@ -92,15 +92,6 @@ const EmployeeList = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-
- 
-
-   
-
-
-
-
 
 
 

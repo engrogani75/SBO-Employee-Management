@@ -42,7 +42,7 @@ console.log(monthString);
   // Add the new work entry to the table
   addWork(newWork);
 
-  axios.post('http://localhost:5000/work-sheet', newWork)
+  axios.post('https://sbo-employee-management-server.vercel.app/work-sheet', newWork)
   .then(res => {
       console.log(res.data);
       setTask('');

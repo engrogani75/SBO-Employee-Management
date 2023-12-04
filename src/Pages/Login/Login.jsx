@@ -52,16 +52,28 @@ const Login = () => {
     });
     navigate(from, { replace: true });
 })
+
+.catch(error => {
+  Swal.fire({
+    position: 'top-end',
+    icon: 'warning',
+    title: 'your email or password did not',
+    showConfirmButton: false,
+    timer: 1500
+});
+})
+
+
        
     };
 
 
     return (
-        <div className="flex justify-center items-center bg-brown-600">
+        <div className="flex justify-center items-center">
       <div className="lg:my-10">
-        <h1 className="lg:text-2xl lg:my-10 md:my-5 my-3 text-center">Pls give correct  Email and Password</h1>
+        <h1 className="lg:text-2xl lg:mt-16 italic md:my-5 my-3 text-center text-blue-800">Pls give correct  Email and Password</h1>
         
-        <form className="max-w-xl mx-auto border-2 shadow-xl p-4 bg-brown-900" onSubmit={handleSubmit(onSubmit)}>
+        <form className="max-w-xl mx-auto border-2 shadow-xl p-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 flex flex-col gap-6">
      
       <div className="relative h-11 w-full min-w-[200px]">
@@ -117,7 +129,7 @@ const Login = () => {
       </div>
 
       <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
-      New Comer Pls Registation?
+      New Comer! Pls
       <Link to="/signUp"
         className="font-medium text-pink-500 transition-colors hover:text-blue-700 ml-2">
         Registation

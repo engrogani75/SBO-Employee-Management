@@ -11,17 +11,23 @@ const useRole = () => {
     const [userRole, setUserRole] = useState('')
     const [loading, setLoading] = useState(true)
     const axiosSecure = useAxiosSecure()
- 
 
+
+ 
+    
     useEffect(() =>{
 
-        axiosSecure.get(`/users/${user?.email}`) 
-        .then(res => {
-         const result = res?.data
-         setUserRole(result[0]?.role)
-         setLoading(false)
-        })
-     }, [axiosSecure, user])
+    
+            axiosSecure.get(`/users/${user?.email}`) 
+            .then(res => {
+             const result = res?.data
+             setUserRole(result[0]?.role)
+             setLoading(false)
+            })
+        
+
+       
+     }, [axiosSecure, user, loading])
 
      return [userRole, loading]
 };

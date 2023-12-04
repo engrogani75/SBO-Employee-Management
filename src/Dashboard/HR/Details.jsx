@@ -12,7 +12,7 @@ const Details = () => {
    console.log(data);
 
    useEffect(() =>{
-    axios.get(`http://localhost:5000/payments/${email}`)
+    axios.get(`https://sbo-employee-management-server.vercel.app/payments/${email}`)
     .then(res => {
    setData(res?.data)
    renderChart(res?.data)
