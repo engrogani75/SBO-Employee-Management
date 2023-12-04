@@ -6,3 +6,7 @@
 - firebase authentication use
 
 - Live Link: https://resilient-cranachan-6846d9.netlify.app
+
+
+ - Admin Email: safwan@gmail.com
+ - Password: 123456Aq@
