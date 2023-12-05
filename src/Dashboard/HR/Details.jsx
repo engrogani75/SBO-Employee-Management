@@ -9,7 +9,7 @@ const Details = () => {
 
     const { email } = useParams();
     const [data, setData] = useState([])
-   console.log(data);
+  
 
    useEffect(() =>{
     axios.get(`https://sbo-employee-management-server.vercel.app/payments/${email}`)

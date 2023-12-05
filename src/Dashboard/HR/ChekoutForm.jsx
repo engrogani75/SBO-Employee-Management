@@ -49,7 +49,7 @@ const handleSubmit = async (event) =>{
     })
 
     if (error) {
-        console.log('payment error', error);
+        // console.log('payment error', error);
         setError(error.message);
     }
 

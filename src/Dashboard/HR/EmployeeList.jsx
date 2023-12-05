@@ -53,33 +53,46 @@ const EmployeeList = () => {
 
 
     const verifiedHandle = (id) =>{
-        const proced = confirm('are you sure confirm it')
-  
-        if (proced) {
-          axiosSecure.patch(`/users/${id}`, {
-                isVerfied: true
-            })
-            .then(res => {
-                console.log('Data updated successfully:', res.data);
-                if (res.data.modifiedCount>0) {
-                  Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Varified.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                refetch()
-                }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Make verified!"
+    })
 
-
-            })
-           
-
-            .catch(error => {
-                console.error('Error updating data:', error);
-              });
+    .then(result => {
+      if (result.isConfirmed){
+        axiosSecure.patch(`/users/${id}`, {
+          isVerfied: true
+      })
+      .then(res => {
+             
+        if (res.data.modifiedCount>0) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Varified.',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        refetch()
         }
+
+
+    })
+
+    .catch(error => {
+      console.error('Error updating data:', error);
+    });
+
+
+      }
+    })
+  
+       
     }
 
     const handleOpen = (employee) => {
