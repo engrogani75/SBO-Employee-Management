@@ -2,6 +2,7 @@ import { useState } from "react";
 import useUsers from "../../Hooks/useUsers";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { IoIosSwitch } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const AmdinEmployeeList = () => {
 
@@ -13,11 +14,30 @@ const AmdinEmployeeList = () => {
 
    
   const firedHandle = (id) =>{
-   axiosSecure.patch(`/users/admin/${id}`)
-   .then(res => {
-    refetch()
-    console.log(res.data);
-   })
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Fired it!"
+  })
+
+  .then(result => {
+    if (result.isConfirmed){
+      axiosSecure.patch(`/users/admin/${id}`)
+      .then(res => {
+        refetch()
+        console.log(res.data);
+       })
+
+    }
+  })
+
+  
+   
   }
 
   const makeHrHandle = (id) =>{
